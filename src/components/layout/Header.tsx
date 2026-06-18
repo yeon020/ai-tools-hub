@@ -8,21 +8,29 @@ import { cn } from "@/lib/utils";
 import { getToolSuggestions } from "@/data/tools";
 import type { Tool } from "@/lib/types";
 import ToolLogo from "@/components/tools/ToolLogo";
+import { useLanguage, type Lang } from "@/lib/i18n";
 
-const NAV_LINKS = [
-  { href: "/search",                    label: "탐색" },
-  { href: "/compare/chatgpt-vs-claude", label: "비교" },
-  { href: "/category/coding",           label: "카테고리" },
+const LANG_OPTIONS: { value: Lang; flag: string }[] = [
+  { value: "en", flag: "EN" },
+  { value: "ko", flag: "한" },
+  { value: "ja", flag: "日" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const { t, lang, setLang } = useLanguage();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Tool[]>([]);
   const [showSearch, setShowSearch] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const NAV_LINKS = [
+    { href: "/search",                    label: t.nav.explore },
+    { href: "/compare/chatgpt-vs-claude", label: t.nav.compare },
+    { href: "/category/coding",           label: t.nav.category },
+  ];
 
   useEffect(() => {
     setSuggestions(getToolSuggestions(query, 5));
@@ -92,7 +100,7 @@ export default function Header() {
                       autoFocus
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
-                      placeholder="AI 툴 검색..."
+                      placeholder={t.search.placeholder}
                       className="w-56 h-8 pl-9 pr-3 rounded-lg border border-white/[0.10] bg-white/[0.05] text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-violet-500/40 transition-all"
                     />
                   </div>
@@ -119,9 +127,27 @@ export default function Header() {
                   className="flex items-center gap-2 h-8 px-3 rounded-lg border border-white/[0.08] text-zinc-500 hover:text-white hover:border-white/[0.15] transition-all text-sm"
                 >
                   <Search className="h-3.5 w-3.5" />
-                  <span className="text-xs">검색</span>
+                  <span className="text-xs">{t.nav.search}</span>
                 </button>
               )}
+            </div>
+
+            {/* Language switcher */}
+            <div className="flex items-center rounded-lg border border-white/[0.08] overflow-hidden">
+              {LANG_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => setLang(opt.value)}
+                  className={cn(
+                    "h-8 px-2.5 text-xs font-medium transition-colors",
+                    lang === opt.value
+                      ? "bg-violet-600 text-white"
+                      : "text-zinc-500 hover:text-white hover:bg-white/[0.05]"
+                  )}
+                >
+                  {opt.flag}
+                </button>
+              ))}
             </div>
 
             {/* Mobile menu toggle */}
@@ -145,7 +171,7 @@ export default function Header() {
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="AI 툴 검색..."
+                  placeholder={t.search.placeholder}
                   className="w-full h-10 pl-10 pr-4 rounded-lg border border-white/[0.08] bg-white/[0.04] text-sm text-white placeholder:text-zinc-600 focus:outline-none"
                 />
               </div>
@@ -160,6 +186,21 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            {/* Mobile language switcher */}
+            <div className="flex items-center gap-2 pt-2 border-t border-white/[0.06]">
+              {LANG_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => setLang(opt.value)}
+                  className={cn(
+                    "px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
+                    lang === opt.value ? "bg-violet-600 text-white" : "text-zinc-500 border border-white/[0.08]"
+                  )}
+                >
+                  {opt.flag}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

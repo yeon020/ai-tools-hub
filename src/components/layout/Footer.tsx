@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { Zap } from "lucide-react";
 import { CATEGORIES } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="border-t border-white/[0.06] bg-[#0a0a0a] mt-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -15,15 +20,14 @@ export default function Footer() {
               </div>
               <span className="text-sm font-bold text-white">AI<span className="text-violet-400">Hub</span></span>
             </Link>
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              AI 툴 비교 & 탐색 플랫폼.<br />
-              최고의 AI 도구를 찾아드립니다.
+            <p className="text-xs text-zinc-600 leading-relaxed whitespace-pre-line">
+              {t.footer.description}
             </p>
           </div>
 
           {/* Categories */}
           <div>
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">카테고리</h4>
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">{t.footer.categories}</h4>
             <ul className="space-y-2">
               {CATEGORIES.map((cat) => (
                 <li key={cat.slug}>
@@ -37,7 +41,7 @@ export default function Footer() {
 
           {/* Popular Tools */}
           <div>
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">인기 툴</h4>
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">{t.footer.popularTools}</h4>
             <ul className="space-y-2">
               {["chatgpt","claude","cursor","perplexity","midjourney","elevenlabs"].map((slug) => (
                 <li key={slug}>
@@ -51,7 +55,7 @@ export default function Footer() {
 
           {/* Comparisons */}
           <div>
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">인기 비교</h4>
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">{t.footer.popularComparisons}</h4>
             <ul className="space-y-2">
               {[
                 { href: "/compare/chatgpt-vs-claude",    label: "ChatGPT vs Claude" },
@@ -70,8 +74,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-zinc-700">© 2024 AIHub. All rights reserved.</p>
-          <p className="text-xs text-zinc-700">일부 링크는 제휴 링크입니다.</p>
+          <p className="text-xs text-zinc-700">{t.footer.copyright}</p>
+          <p className="text-xs text-zinc-700">{t.footer.affiliate}</p>
         </div>
       </div>
     </footer>

@@ -8,9 +8,11 @@ import { getToolSuggestions } from "@/data/tools";
 import type { Tool } from "@/lib/types";
 import ToolLogo from "@/components/tools/ToolLogo";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/i18n";
 
 export default function HeroSection() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Tool[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -58,22 +60,20 @@ export default function HeroSection() {
         {/* Badge */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/8 px-4 py-1.5 text-sm text-violet-400">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>33개 AI 툴 큐레이션 · 매주 업데이트</span>
+          <span>{t.hero.badge}</span>
         </div>
 
         {/* Heading */}
         <h1 className="mb-5 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl leading-[1.1]">
-          최고의 AI 툴을
+          {t.hero.title1}
           <br />
           <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-            찾고 비교하세요
+            {t.hero.title2}
           </span>
         </h1>
 
         <p className="mx-auto mb-10 max-w-2xl text-lg text-zinc-400 leading-relaxed sm:text-xl">
-          ChatGPT부터 Cursor까지 — AI 툴의 가격, 기능, 무료 플랜을
-          <br className="hidden sm:block" />
-          한 곳에서 비교하고 최적의 도구를 선택하세요.
+          {t.hero.description}
         </p>
 
         {/* Search with autocomplete */}
@@ -85,12 +85,12 @@ export default function HeroSection() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => query && setSuggestions.length > 0 && setShowSuggestions(true)}
+                onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
                 placeholder="ChatGPT, Cursor, Midjourney..."
                 className="h-14 w-full rounded-2xl border border-white/[0.10] bg-white/[0.05] pl-14 pr-36 text-base text-white placeholder:text-zinc-500 focus:border-violet-500/40 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all duration-200"
               />
               <Button type="submit" variant="gradient" className="absolute right-2 h-10 gap-2 px-5">
-                검색
+                {t.hero.searchButton}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
@@ -119,7 +119,7 @@ export default function HeroSection() {
 
         {/* Quick links */}
         <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
-          <span className="text-zinc-600">인기:</span>
+          <span className="text-zinc-600">{t.hero.popularLabel}</span>
           {["ChatGPT", "Claude", "Cursor", "Midjourney", "Perplexity"].map((term) => (
             <Link
               key={term}
@@ -133,11 +133,7 @@ export default function HeroSection() {
 
         {/* Stats */}
         <div className="mt-14 grid grid-cols-3 gap-6 mx-auto max-w-sm">
-          {[
-            { value: "33+",  label: "AI 툴" },
-            { value: "7",    label: "카테고리" },
-            { value: "무료", label: "이용 가능" },
-          ].map((s) => (
+          {t.hero.stats.map((s) => (
             <div key={s.label} className="text-center">
               <div className="text-2xl font-bold text-white">{s.value}</div>
               <div className="text-xs text-zinc-500 mt-0.5">{s.label}</div>
