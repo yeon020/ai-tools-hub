@@ -11,18 +11,34 @@ interface Props {
 export async function generateStaticParams() {
   const pairs = [
     ...POPULAR_COMPARISONS.map((c) => ({ comparison: `${c.toolA}-vs-${c.toolB}` })),
+    // Chat & General AI
     { comparison: "chatgpt-vs-perplexity" },
-    { comparison: "cursor-vs-github-copilot" },
-    { comparison: "midjourney-vs-leonardo-ai" },
     { comparison: "chatgpt-vs-deepseek" },
-    { comparison: "claude-vs-deepseek" },
     { comparison: "chatgpt-vs-microsoft-copilot" },
+    { comparison: "claude-vs-deepseek" },
+    { comparison: "claude-vs-gemini" },
+    { comparison: "claude-vs-perplexity" },
+    { comparison: "gemini-vs-perplexity" },
+    { comparison: "deepseek-vs-gemini" },
+    { comparison: "chatgpt-vs-notion-ai" },
+    // Coding
+    { comparison: "cursor-vs-github-copilot" },
+    { comparison: "cursor-vs-cline" },
+    { comparison: "cursor-vs-bolt" },
+    { comparison: "github-copilot-vs-cline" },
     { comparison: "bolt-vs-lovable" },
     { comparison: "bolt-vs-v0" },
-    { comparison: "cursor-vs-cline" },
+    { comparison: "windsurf-vs-github-copilot" },
+    // Image
+    { comparison: "midjourney-vs-leonardo-ai" },
+    { comparison: "midjourney-vs-ideogram" },
+    { comparison: "midjourney-vs-stable-diffusion" },
+    { comparison: "leonardo-ai-vs-ideogram" },
+    // Video
     { comparison: "heygen-vs-synthesia" },
     { comparison: "runway-vs-pika" },
-    { comparison: "deepseek-vs-gemini" },
+    { comparison: "runway-vs-kling-ai" },
+    { comparison: "pika-vs-kling-ai" },
   ];
   return pairs;
 }
