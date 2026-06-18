@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Share2, Check, Trophy } from "lucide-react";
+import { Share2, Check, Trophy, Twitter } from "lucide-react";
 import { getVoteCounts, insertVote } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n";
 import type { Tool } from "@/lib/types";
@@ -49,7 +49,7 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
     setVoting(false);
   }
 
-  async function handleShare() {
+  function handleShare() {
     const url = `https://ai-tools-hub-silk.vercel.app/compare/${comparisonSlug}`;
     const text =
       lang === "ko"
@@ -57,12 +57,15 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
         : `${toolA.name} vs ${toolB.name} — currently ${pctA}% vs ${pctB}%! Which do you prefer? 🤔`;
 
     if (navigator.share) {
-      await navigator.share({ title: `${toolA.name} vs ${toolB.name}`, text, url });
-    } else {
-      await navigator.clipboard.writeText(`${text}\n${url}`);
-      setShared(true);
-      setTimeout(() => setShared(false), 2000);
+      navigator.share({ title: `${toolA.name} vs ${toolB.name}`, text, url });
+      return;
     }
+
+    // Twitter/X share
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    window.open(twitterUrl, "_blank", "noopener,noreferrer,width=550,height=450");
+    setShared(true);
+    setTimeout(() => setShared(false), 2000);
   }
 
   return (
@@ -145,14 +148,14 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
             {shared ? (
               <>
                 <Check className="h-4 w-4" />
-                {lang === "ko" ? "링크 복사됨!" : "Link copied!"}
+                {lang === "ko" ? "트위터 열림!" : "Twitter opened!"}
               </>
             ) : (
               <>
-                <Share2 className="h-4 w-4" />
+                <Twitter className="h-4 w-4" />
                 {lang === "ko"
-                  ? `결과 공유하기 — ${pctA}% vs ${pctB}%`
-                  : `Share result — ${pctA}% vs ${pctB}%`}
+                  ? `X(트위터)에 공유 — ${pctA}% vs ${pctB}%`
+                  : `Share on X — ${pctA}% vs ${pctB}%`}
               </>
             )}
           </button>
