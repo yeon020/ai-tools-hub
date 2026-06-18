@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import CompareSelector from "@/components/compare/CompareSelector";
 import CompareTable from "@/components/compare/CompareTable";
+import VoteSection from "@/components/compare/VoteSection";
 import { useLanguage } from "@/lib/i18n";
 import type { Tool } from "@/lib/types";
 import { POPULAR_COMPARISONS } from "@/lib/utils";
@@ -55,6 +56,9 @@ export default function ComparePageContent({ toolA, toolB, comparison }: Props) 
 
       {/* Main compare content */}
       <CompareTable toolA={toolA} toolB={toolB} />
+
+      {/* Vote section */}
+      <VoteSection toolA={toolA} toolB={toolB} comparisonSlug={comparison} />
 
       {/* Other comparisons */}
       {otherComparisons.length > 0 && (

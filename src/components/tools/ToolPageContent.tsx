@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ExternalLink, Star, CheckCircle2, XCircle, ArrowRight, Building2, Tag } from "lucide-react";
 import ToolLogo from "@/components/tools/ToolLogo";
+import LikeButton from "@/components/tools/LikeButton";
 import { useLanguage } from "@/lib/i18n";
 import type { Tool } from "@/lib/types";
 import { localizeTool } from "@/lib/localize";
@@ -107,6 +108,7 @@ export default function ToolPageContent({ tool, related, comparisons }: Props) {
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.12] text-zinc-300 hover:text-white hover:border-white/20 text-sm font-medium transition-colors">
                 {t.tool.officialSite} <ExternalLink className="h-3.5 w-3.5" />
               </a>
+              <LikeButton toolSlug={tool.slug} />
             </div>
           </div>
 
