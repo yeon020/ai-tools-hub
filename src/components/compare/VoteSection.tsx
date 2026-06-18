@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Share2, Check, Trophy, Twitter } from "lucide-react";
+import { Share2, Trophy, Check } from "lucide-react";
 import { getVoteCounts, insertVote } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n";
 import type { Tool } from "@/lib/types";
+import ShareModal from "@/components/share/ShareModal";
 
 interface Props {
   toolA: Tool;
@@ -20,7 +21,7 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
   const [voted, setVoted] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [voting, setVoting] = useState(false);
-  const [shared, setShared] = useState(false);
+  const [showShare, setShowShare] = useState(false);
 
   const totalVotes = (counts[toolA.slug] ?? 0) + (counts[toolB.slug] ?? 0);
   const pctA = totalVotes > 0 ? Math.round(((counts[toolA.slug] ?? 0) / totalVotes) * 100) : 50;
@@ -49,26 +50,24 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
     setVoting(false);
   }
 
+  const shareUrl = `https://ai-tools-hub-silk.vercel.app/compare/${comparisonSlug}`;
+  const shareText = lang === "ko"
+    ? `${toolA.name} vs ${toolB.name} — 현재 ${pctA}% vs ${pctB}%! 당신의 선택은? 🤔`
+    : `${toolA.name} vs ${toolB.name} — currently ${pctA}% vs ${pctB}%! Which do you prefer? 🤔`;
+
   function handleShare() {
-    const url = `https://ai-tools-hub-silk.vercel.app/compare/${comparisonSlug}`;
-    const text =
-      lang === "ko"
-        ? `${toolA.name} vs ${toolB.name} — 현재 ${pctA}% vs ${pctB}%! 당신의 선택은? 🤔`
-        : `${toolA.name} vs ${toolB.name} — currently ${pctA}% vs ${pctB}%! Which do you prefer? 🤔`;
-
-    if (navigator.share) {
-      navigator.share({ title: `${toolA.name} vs ${toolB.name}`, text, url });
-      return;
-    }
-
-    // Twitter/X share
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-    window.open(twitterUrl, "_blank", "noopener,noreferrer,width=550,height=450");
-    setShared(true);
-    setTimeout(() => setShared(false), 2000);
+    setShowShare(true);
   }
 
   return (
+    <>
+    {showShare && (
+      <ShareModal
+        url={shareUrl}
+        text={shareText}
+        onClose={() => setShowShare(false)}
+      />
+    )}
     <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden mt-8">
       {/* Header */}
       <div className="px-6 py-5 border-b border-white/[0.06]">
@@ -145,19 +144,12 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
             onClick={handleShare}
             className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-violet-500/30 bg-violet-500/5 hover:bg-violet-500/10 text-violet-400 text-sm font-semibold transition-all duration-200"
           >
-            {shared ? (
-              <>
-                <Check className="h-4 w-4" />
-                {lang === "ko" ? "트위터 열림!" : "Twitter opened!"}
-              </>
-            ) : (
-              <>
-                <Twitter className="h-4 w-4" />
-                {lang === "ko"
-                  ? `X(트위터)에 공유 — ${pctA}% vs ${pctB}%`
-                  : `Share on X — ${pctA}% vs ${pctB}%`}
-              </>
-            )}
+            <>
+              <Share2 className="h-4 w-4" />
+              {lang === "ko"
+                ? `결과 공유하기 — ${pctA}% vs ${pctB}%`
+                : `Share result — ${pctA}% vs ${pctB}%`}
+            </>
           </button>
         )}
 
@@ -168,5 +160,6 @@ export default function VoteSection({ toolA, toolB, comparisonSlug }: Props) {
         )}
       </div>
     </div>
+    </>
   );
 }
