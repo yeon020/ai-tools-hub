@@ -10,7 +10,7 @@ export default function OgImage() {
     (
       <div
         style={{
-          background: "#0a0a0a",
+          background: "#09090b",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -18,48 +18,65 @@ export default function OgImage() {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          overflow: "hidden",
+          fontFamily: "sans-serif",
         }}
       >
-        {/* Background glow */}
+        {/* Top violet glow */}
         <div
           style={{
             position: "absolute",
-            top: "-100px",
+            top: "-80px",
             left: "50%",
             transform: "translateX(-50%)",
-            width: "800px",
+            width: "900px",
             height: "500px",
             borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(124,58,237,0.25) 0%, transparent 70%)",
+            background:
+              "radial-gradient(ellipse, rgba(124,58,237,0.3) 0%, transparent 65%)",
           }}
         />
 
-        {/* Logo row */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "32px" }}>
+        {/* Logo */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "14px",
+            marginBottom: "36px",
+          }}
+        >
           <div
             style={{
-              width: "56px",
-              height: "56px",
-              borderRadius: "14px",
+              width: "60px",
+              height: "60px",
+              borderRadius: "16px",
               background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: "28px",
+              color: "#fff",
+              fontSize: "30px",
+              fontWeight: 900,
             }}
           >
-            ⚡
+            AI
           </div>
-          <span style={{ fontSize: "42px", fontWeight: 800, color: "#ffffff", letterSpacing: "-1px" }}>
-            AI<span style={{ color: "#a78bfa" }}>Hub</span>
+          <span
+            style={{
+              fontSize: "48px",
+              fontWeight: 800,
+              color: "#ffffff",
+              letterSpacing: "-2px",
+            }}
+          >
+            Hub
           </span>
         </div>
 
         {/* Headline */}
         <div
           style={{
-            fontSize: "58px",
+            fontSize: "60px",
             fontWeight: 800,
             color: "#ffffff",
             letterSpacing: "-2px",
@@ -76,33 +93,52 @@ export default function OgImage() {
         <div
           style={{
             marginTop: "24px",
-            fontSize: "24px",
+            fontSize: "26px",
             color: "#71717a",
             textAlign: "center",
-            maxWidth: "700px",
           }}
         >
           33+ AI tools · Pricing · Features · Free Plans
         </div>
 
         {/* Tool badges */}
-        <div style={{ display: "flex", gap: "12px", marginTop: "40px" }}>
-          {["ChatGPT", "Claude", "Cursor", "Midjourney", "Perplexity"].map((name) => (
-            <div
-              key={name}
-              style={{
-                padding: "8px 18px",
-                borderRadius: "999px",
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "rgba(255,255,255,0.05)",
-                color: "#a1a1aa",
-                fontSize: "18px",
-                fontWeight: 500,
-              }}
-            >
-              {name}
-            </div>
-          ))}
+        <div
+          style={{
+            display: "flex",
+            gap: "14px",
+            marginTop: "44px",
+          }}
+        >
+          {["ChatGPT", "Claude", "Cursor", "Midjourney", "Perplexity"].map(
+            (name) => (
+              <div
+                key={name}
+                style={{
+                  padding: "10px 22px",
+                  borderRadius: "999px",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  background: "rgba(255,255,255,0.06)",
+                  color: "#a1a1aa",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                }}
+              >
+                {name}
+              </div>
+            )
+          )}
+        </div>
+
+        {/* Bottom URL */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "36px",
+            fontSize: "18px",
+            color: "#52525b",
+          }}
+        >
+          ai-tools-hub-silk.vercel.app
         </div>
       </div>
     ),
