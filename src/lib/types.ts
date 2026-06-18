@@ -12,15 +12,16 @@ export interface Tool {
   name: string;
   slug: string;
   company: string;
-  description: string;          // English (base)
-  description_ko?: string;      // Korean override
-  long_description?: string;    // English (base)
-  long_description_ko?: string; // Korean override
+  description: string;
+  description_ko?: string;
+  long_description?: string;
+  long_description_ko?: string;
   logo_url: string;
   website_url: string;
   affiliate_url: string;
   category: Category;
   pricing: string;
+  pricing_ko?: string;
   free_plan: boolean;
   api_support: boolean;
   web_search: boolean;
@@ -31,8 +32,9 @@ export interface Tool {
   mobile_app: boolean;
   context_window: string;
   recommended_for: string;
-  features: string[];           // English (base)
-  features_ko?: string[];       // Korean override
+  recommended_for_ko?: string;
+  features: string[];
+  features_ko?: string[];
   alternatives: string[];
   rating?: number;
   review_count?: number;
@@ -54,7 +56,9 @@ export interface Review {
 export interface CategoryInfo {
   slug: Category;
   label: string;
+  label_ko: string;
   description: string;
+  description_ko: string;
   icon: string;
 }
 

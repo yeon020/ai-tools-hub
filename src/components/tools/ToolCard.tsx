@@ -51,7 +51,7 @@ export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
               <h3 className="font-semibold text-white text-base leading-tight">{tool.name}</h3>
               <p className="text-xs text-zinc-500 mt-0.5">{tool.company}</p>
               <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
-                <Badge variant="purple" className="text-xs">{getCategoryLabel(tool.category)}</Badge>
+                <Badge variant="purple" className="text-xs">{getCategoryLabel(tool.category, lang)}</Badge>
                 {tool.free_plan && (
                   <Badge variant="success" className="text-xs">
                     <CheckCircle2 className="h-3 w-3 mr-0.5" />{t.card.free}

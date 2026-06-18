@@ -1,11 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Flame, ChevronRight } from "lucide-react";
 import { POPULAR_COMPARISONS } from "@/lib/utils";
 import { getToolBySlug } from "@/data/tools";
 import { Card, CardContent } from "@/components/ui/card";
 import ToolLogo from "@/components/tools/ToolLogo";
+import { useLanguage } from "@/lib/i18n";
 
 export default function PopularComparisons() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-12 border-t border-white/[0.06]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -14,8 +19,8 @@ export default function PopularComparisons() {
             <Flame className="h-4 w-4 text-rose-400" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">Popular Comparisons</h2>
-            <p className="text-xs text-zinc-500">사용자들이 가장 많이 비교하는 AI 툴</p>
+            <h2 className="text-lg font-bold text-white">{t.home.comparisons}</h2>
+            <p className="text-xs text-zinc-500">{t.home.comparisonsDesc}</p>
           </div>
         </div>
 

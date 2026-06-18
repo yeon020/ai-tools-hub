@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import {
   MessageSquare, Code2, Image, Video, Mic, Zap, Palette,
 } from "lucide-react";
 import { CATEGORIES } from "@/lib/utils";
 import { SAMPLE_TOOLS } from "@/data/tools";
+import { useLanguage } from "@/lib/i18n";
 
 const ICON_MAP = { MessageSquare, Code2, Image, Video, Mic, Zap, Palette } as const;
 
@@ -18,8 +21,10 @@ const COLORS = [
 ];
 
 export default function Categories() {
+  const { t, lang } = useLanguage();
+
   const toolCounts = CATEGORIES.reduce<Record<string, number>>((acc, cat) => {
-    acc[cat.slug] = SAMPLE_TOOLS.filter((t) => t.category === cat.slug).length;
+    acc[cat.slug] = SAMPLE_TOOLS.filter((tool) => tool.category === cat.slug).length;
     return acc;
   }, {});
 
@@ -27,8 +32,8 @@ export default function Categories() {
     <section className="py-12 border-t border-white/[0.06]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <h2 className="text-lg font-bold text-white">카테고리</h2>
-          <p className="text-xs text-zinc-500 mt-0.5">분야별 AI 툴 탐색</p>
+          <h2 className="text-lg font-bold text-white">{t.home.categories}</h2>
+          <p className="text-xs text-zinc-500 mt-0.5">{t.home.categoriesDesc}</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
@@ -36,6 +41,8 @@ export default function Categories() {
             const IconComp = ICON_MAP[cat.icon as keyof typeof ICON_MAP];
             const colorClass = COLORS[i % COLORS.length];
             const count = toolCounts[cat.slug] ?? 0;
+            const label = lang === "ko" ? cat.label_ko : cat.label;
+            const countLabel = lang === "ko" ? `${count}개` : `${count}`;
 
             return (
               <Link
@@ -45,8 +52,8 @@ export default function Categories() {
               >
                 {IconComp && <IconComp className="h-5 w-5" />}
                 <div>
-                  <div className="text-sm font-semibold text-white">{cat.label}</div>
-                  <div className="text-xs text-zinc-500 mt-0.5">{count}개</div>
+                  <div className="text-sm font-semibold text-white">{label}</div>
+                  <div className="text-xs text-zinc-500 mt-0.5">{countLabel}</div>
                 </div>
               </Link>
             );

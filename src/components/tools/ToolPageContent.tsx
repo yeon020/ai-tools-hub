@@ -40,7 +40,7 @@ export default function ToolPageContent({ tool, related, comparisons }: Props) {
   const faqs = getToolFAQs(tool, lang);
 
   const FEATURE_TABLE = [
-    { label: sl.price,          value: tool.pricing },
+    { label: sl.price,          value: lTool.localPricing },
     { label: sl.freePlan,       bool: tool.free_plan },
     { label: sl.apiSupport,     bool: tool.api_support },
     { label: sl.webSearch,      bool: tool.web_search },
@@ -50,7 +50,7 @@ export default function ToolPageContent({ tool, related, comparisons }: Props) {
     { label: sl.coding,         bool: tool.coding_support },
     { label: sl.mobileApp,      bool: tool.mobile_app },
     { label: sl.contextWindow,  value: tool.context_window },
-    { label: sl.recommendedFor, value: tool.recommended_for },
+    { label: sl.recommendedFor, value: lTool.localRecommendedFor },
     { label: sl.releaseDate,    value: tool.release_date },
     { label: sl.company,        value: tool.company },
   ] as Array<{ label: string; value?: string; bool?: boolean }>;
@@ -85,7 +85,7 @@ export default function ToolPageContent({ tool, related, comparisons }: Props) {
                     <Building2 className="h-3.5 w-3.5" />{tool.company}
                   </span>
                   <span className="text-sm text-zinc-500 flex items-center gap-1">
-                    <Tag className="h-3.5 w-3.5" />{tool.category}
+                    <Tag className="h-3.5 w-3.5" />{lTool.localCategory}
                   </span>
                   {tool.rating && (
                     <span className="flex items-center gap-1.5">
@@ -221,7 +221,7 @@ export default function ToolPageContent({ tool, related, comparisons }: Props) {
             <div className="space-y-2.5 text-xs">
               {[
                 { label: sl.company,     value: tool.company },
-                { label: sl.category,    value: tool.category },
+                { label: sl.category,    value: lTool.localCategory },
                 { label: sl.releaseDate, value: tool.release_date },
                 { label: sl.updatedAt,   value: tool.updated_at.slice(0, 10) },
               ].map((item) => (

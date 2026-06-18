@@ -81,6 +81,8 @@ const translations = {
       tools: "AI Tools",
       otherCategories: "Other Categories",
       toolsCount: "tools",
+      noTools: "No tools in this category yet.",
+      backHome: "Back to Home",
     },
     compare: {
       home: "Home",
@@ -102,7 +104,7 @@ const translations = {
       categories: "Browse by Category",
       categoriesDesc: "Find the right tool for your use case",
       comparisons: "Popular Comparisons",
-      comparisonsDesc: "Side-by-side feature comparisons",
+      comparisonsDesc: "Most compared AI tools by users",
     },
     categoryLabels: {
       chat: "Chat",
@@ -190,6 +192,8 @@ const translations = {
       tools: "AI 툴",
       otherCategories: "다른 카테고리",
       toolsCount: "개의 툴",
+      noTools: "이 카테고리에 등록된 툴이 없습니다.",
+      backHome: "홈으로 돌아가기",
     },
     compare: {
       home: "홈",
@@ -204,14 +208,14 @@ const translations = {
       viewAll: "전체 보기",
     },
     home: {
-      trending: "Trending Tools",
+      trending: "인기 AI 툴",
       trendingDesc: "지금 가장 주목받는 AI 툴",
-      recent: "Recently Updated",
+      recent: "최근 업데이트",
       recentDesc: "최신 정보로 업데이트된 AI 툴",
       categories: "카테고리 탐색",
       categoriesDesc: "용도별 AI 툴 찾기",
       comparisons: "인기 비교",
-      comparisonsDesc: "기능 비교로 최적의 툴 선택",
+      comparisonsDesc: "사용자들이 가장 많이 비교하는 AI 툴",
     },
     categoryLabels: {
       chat: "채팅",
