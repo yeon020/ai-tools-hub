@@ -20,42 +20,34 @@ const COMPARE_SLUGS = [
   "deepseek-vs-gemini",
 ];
 
-function entry(
-  path: string,
-  priority: number,
-  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "weekly"
-): MetadataRoute.Sitemap[number] {
-  return {
-    url: `${BASE_URL}${path}`,
-    lastModified: new Date(),
-    changeFrequency,
-    priority,
-    alternates: {
-      languages: {
-        en: `${BASE_URL}${path}`,
-        ko: `${BASE_URL}${path}`,
-      },
-    },
-  };
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
   const staticPages: MetadataRoute.Sitemap = [
-    entry("/",       1.0, "daily"),
-    entry("/search", 0.8, "daily"),
+    { url: `${BASE_URL}/`,       lastModified: now, changeFrequency: "daily",   priority: 1.0 },
+    { url: `${BASE_URL}/search`, lastModified: now, changeFrequency: "daily",   priority: 0.8 },
   ];
 
-  const categoryPages = CATEGORIES.map((cat) =>
-    entry(`/category/${cat.slug}`, 0.8, "weekly")
-  );
+  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
+    url: `${BASE_URL}/category/${cat.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
 
-  const toolPages = SAMPLE_TOOLS.map((tool) =>
-    entry(`/tool/${tool.slug}`, 0.9, "weekly")
-  );
+  const toolPages: MetadataRoute.Sitemap = SAMPLE_TOOLS.map((tool) => ({
+    url: `${BASE_URL}/tool/${tool.slug}`,
+    lastModified: new Date(tool.updated_at),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
 
-  const comparePages = COMPARE_SLUGS.map((slug) =>
-    entry(`/compare/${slug}`, 0.7, "monthly")
-  );
+  const comparePages: MetadataRoute.Sitemap = COMPARE_SLUGS.map((slug) => ({
+    url: `${BASE_URL}/compare/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
 
   return [...staticPages, ...categoryPages, ...toolPages, ...comparePages];
 }
