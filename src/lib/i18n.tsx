@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-export type Lang = "en" | "ko" | "ja";
+export type Lang = "en" | "ko";
 
 const translations = {
   en: {
@@ -11,7 +11,7 @@ const translations = {
       badge: "33 AI Tools Curated · Updated Weekly",
       title1: "Find & Compare",
       title2: "the Best AI Tools",
-      description: "From ChatGPT to Cursor — compare AI tool pricing, features, and free plans all in one place and choose the right tool for you.",
+      description: "From ChatGPT to Cursor — compare AI tool pricing, features, and free plans all in one place.",
       searchButton: "Search",
       popularLabel: "Popular:",
       stats: [
@@ -25,13 +25,13 @@ const translations = {
       categories: "Categories",
       popularTools: "Popular Tools",
       popularComparisons: "Popular Comparisons",
-      copyright: "© 2024 AIHub. All rights reserved.",
+      copyright: "© 2025 AIHub. All rights reserved.",
       affiliate: "Some links are affiliate links.",
     },
     search: {
       title: "Explore AI Tools",
-      resultsCount: "AI tools",
-      searchResultsSuffix: "search results",
+      resultsCount: " AI tools",
+      searchResultsSuffix: "search results for",
       placeholder: "Search by name, company, category...",
       all: "All",
       freePlan: "Free Plan",
@@ -39,6 +39,7 @@ const translations = {
       noResults: "No results found",
       noResultsDesc: "Try different keywords or categories",
       resetFilters: "Reset Filters",
+      loading: "Loading...",
     },
     tool: {
       freePlan: "Free Plan",
@@ -57,18 +58,35 @@ const translations = {
       compareWith: "Compare",
       free: "Free",
       specLabels: {
-        price: "Price", freePlan: "Free Plan", apiSupport: "API Support",
-        webSearch: "Web Search", fileUpload: "File Upload", imageGen: "Image Generation",
-        voice: "Voice Support", coding: "Coding Support", mobileApp: "Mobile App",
-        contextWindow: "Context Window", recommendedFor: "Recommended For",
-        releaseDate: "Release Date", company: "Company", category: "Category",
-        updatedAt: "Last Updated", rating: "Rating",
+        price: "Price",
+        freePlan: "Free Plan",
+        apiSupport: "API Support",
+        webSearch: "Web Search",
+        fileUpload: "File Upload",
+        imageGen: "Image Generation",
+        voice: "Voice Support",
+        coding: "Coding Support",
+        mobileApp: "Mobile App",
+        contextWindow: "Context Window",
+        recommendedFor: "Recommended For",
+        releaseDate: "Release Date",
+        company: "Company",
+        category: "Category",
+        updatedAt: "Last Updated",
+        rating: "Rating",
       },
     },
-    category: { home: "Home", tools: "AI Tools", otherCategories: "Other Categories" },
+    category: {
+      home: "Home",
+      tools: "AI Tools",
+      otherCategories: "Other Categories",
+      toolsCount: "tools",
+    },
     compare: {
-      home: "Home", compare: "Compare",
-      subtitle: "year latest pricing, features & free plan comparison",
+      home: "Home",
+      compare: "Compare",
+      subtitlePrefix: "",
+      subtitleSuffix: " latest pricing, features & free plan comparison",
       otherComparisons: "More Comparisons",
     },
     card: {
@@ -80,11 +98,20 @@ const translations = {
       trending: "Trending Tools",
       trendingDesc: "Most popular AI tools right now",
       recent: "Recently Updated",
-      recentDesc: "AI tools with the latest info",
+      recentDesc: "AI tools with the latest information",
       categories: "Browse by Category",
-      categoriesDesc: "Find tools by use case",
+      categoriesDesc: "Find the right tool for your use case",
       comparisons: "Popular Comparisons",
-      comparisonsDesc: "Side-by-side feature comparison",
+      comparisonsDesc: "Side-by-side feature comparisons",
+    },
+    categoryLabels: {
+      chat: "Chat",
+      coding: "Coding",
+      image: "Image",
+      video: "Video",
+      voice: "Voice",
+      productivity: "Productivity",
+      design: "Design",
     },
   },
   ko: {
@@ -107,7 +134,7 @@ const translations = {
       categories: "카테고리",
       popularTools: "인기 툴",
       popularComparisons: "인기 비교",
-      copyright: "© 2024 AIHub. All rights reserved.",
+      copyright: "© 2025 AIHub. All rights reserved.",
       affiliate: "일부 링크는 제휴 링크입니다.",
     },
     search: {
@@ -121,6 +148,7 @@ const translations = {
       noResults: "검색 결과가 없습니다",
       noResultsDesc: "다른 키워드나 카테고리로 시도해보세요",
       resetFilters: "필터 초기화",
+      loading: "로딩 중...",
     },
     tool: {
       freePlan: "무료 플랜",
@@ -139,18 +167,35 @@ const translations = {
       compareWith: "비교하기",
       free: "무료",
       specLabels: {
-        price: "가격", freePlan: "무료 플랜", apiSupport: "API 지원",
-        webSearch: "웹 검색", fileUpload: "파일 업로드", imageGen: "이미지 생성",
-        voice: "음성 기능", coding: "코딩 지원", mobileApp: "모바일 앱",
-        contextWindow: "컨텍스트 길이", recommendedFor: "추천 대상",
-        releaseDate: "출시일", company: "회사", category: "카테고리",
-        updatedAt: "업데이트", rating: "평점",
+        price: "가격",
+        freePlan: "무료 플랜",
+        apiSupport: "API 지원",
+        webSearch: "웹 검색",
+        fileUpload: "파일 업로드",
+        imageGen: "이미지 생성",
+        voice: "음성 기능",
+        coding: "코딩 지원",
+        mobileApp: "모바일 앱",
+        contextWindow: "컨텍스트 길이",
+        recommendedFor: "추천 대상",
+        releaseDate: "출시일",
+        company: "회사",
+        category: "카테고리",
+        updatedAt: "업데이트",
+        rating: "평점",
       },
     },
-    category: { home: "홈", tools: "AI 툴", otherCategories: "다른 카테고리" },
+    category: {
+      home: "홈",
+      tools: "AI 툴",
+      otherCategories: "다른 카테고리",
+      toolsCount: "개의 툴",
+    },
     compare: {
-      home: "홈", compare: "비교",
-      subtitle: "년 최신 가격, 기능, 무료 플랜 비교",
+      home: "홈",
+      compare: "비교",
+      subtitlePrefix: "",
+      subtitleSuffix: "년 최신 가격, 기능, 무료 플랜 비교",
       otherComparisons: "다른 비교 보기",
     },
     card: {
@@ -168,92 +213,19 @@ const translations = {
       comparisons: "인기 비교",
       comparisonsDesc: "기능 비교로 최적의 툴 선택",
     },
-  },
-  ja: {
-    nav: { explore: "探索", compare: "比較", category: "カテゴリ", search: "検索" },
-    hero: {
-      badge: "33のAIツール厳選 · 毎週更新",
-      title1: "最高のAIツールを",
-      title2: "見つけて比較しよう",
-      description: "ChatGPTからCursorまで — AIツールの料金、機能、無料プランを一か所で比較して最適なツールを選択。",
-      searchButton: "検索",
-      popularLabel: "人気:",
-      stats: [
-        { value: "33+", label: "AIツール" },
-        { value: "7",   label: "カテゴリ" },
-        { value: "無料", label: "利用可能" },
-      ],
-    },
-    footer: {
-      description: "AIツール比較・探索プラットフォーム。\n最高のAIツールを見つけましょう。",
-      categories: "カテゴリ",
-      popularTools: "人気ツール",
-      popularComparisons: "人気の比較",
-      copyright: "© 2024 AIHub. All rights reserved.",
-      affiliate: "一部のリンクはアフィリエイトリンクです。",
-    },
-    search: {
-      title: "AIツールを探索",
-      resultsCount: "件のAIツール",
-      searchResultsSuffix: "の検索結果",
-      placeholder: "ツール名、会社、カテゴリで検索...",
-      all: "すべて",
-      freePlan: "無料プラン",
-      reset: "リセット",
-      noResults: "検索結果がありません",
-      noResultsDesc: "別のキーワードやカテゴリでお試しください",
-      resetFilters: "フィルターをリセット",
-    },
-    tool: {
-      freePlan: "無料プラン",
-      featured: "おすすめ",
-      startFree: "無料で始める",
-      officialSite: "公式サイト",
-      whatIs: "とは？",
-      keyFeatures: "主な機能",
-      specs: "詳細スペック",
-      faq: "よくある質問",
-      relatedComparisons: "関連比較",
-      relatedTools: "関連AIツール",
-      pricing: "料金情報",
-      toolInfo: "ツール情報",
-      quickCheck: "クイックチェック",
-      compareWith: "と比較する",
-      free: "無料",
-      specLabels: {
-        price: "料金", freePlan: "無料プラン", apiSupport: "APIサポート",
-        webSearch: "Web検索", fileUpload: "ファイルアップロード", imageGen: "画像生成",
-        voice: "音声機能", coding: "コーディングサポート", mobileApp: "モバイルアプリ",
-        contextWindow: "コンテキスト長", recommendedFor: "おすすめ対象",
-        releaseDate: "リリース日", company: "会社", category: "カテゴリ",
-        updatedAt: "更新日", rating: "評価",
-      },
-    },
-    category: { home: "ホーム", tools: "AIツール", otherCategories: "他のカテゴリ" },
-    compare: {
-      home: "ホーム", compare: "比較",
-      subtitle: "年 最新の料金、機能、無料プラン比較",
-      otherComparisons: "他の比較を見る",
-    },
-    card: {
-      viewDetails: "詳しく見る",
-      free: "無料",
-      viewAll: "すべて見る",
-    },
-    home: {
-      trending: "Trending Tools",
-      trendingDesc: "今注目のAIツール",
-      recent: "Recently Updated",
-      recentDesc: "最新情報に更新されたAIツール",
-      categories: "カテゴリで探す",
-      categoriesDesc: "用途別AIツールを探す",
-      comparisons: "人気の比較",
-      comparisonsDesc: "機能比較で最適なツールを選ぼう",
+    categoryLabels: {
+      chat: "채팅",
+      coding: "코딩",
+      image: "이미지",
+      video: "비디오",
+      voice: "음성",
+      productivity: "생산성",
+      design: "디자인",
     },
   },
 };
 
-type Translations = typeof translations.en;
+export type Translations = typeof translations.en;
 
 interface LangContextType {
   lang: Lang;
@@ -272,7 +244,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem("aihub-lang") as Lang | null;
-    if (saved && saved in translations) setLangState(saved);
+    if (saved && (saved === "en" || saved === "ko")) setLangState(saved);
   }, []);
 
   const setLang = (l: Lang) => {

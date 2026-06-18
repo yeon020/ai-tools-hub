@@ -9,6 +9,7 @@ import { getCategoryLabel } from "@/lib/utils";
 import type { Tool } from "@/lib/types";
 import ToolLogo from "./ToolLogo";
 import { useLanguage } from "@/lib/i18n";
+import { localizeTool } from "@/lib/localize";
 
 interface ToolCardProps {
   tool: Tool;
@@ -16,7 +17,8 @@ interface ToolCardProps {
 }
 
 export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const lTool = localizeTool(tool, lang);
   if (variant === "compact") {
     return (
       <Link href={`/tool/${tool.slug}`}>
@@ -68,7 +70,7 @@ export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
 
         {/* Description */}
         <p className="text-sm text-zinc-400 leading-relaxed line-clamp-2 mb-3 flex-1">
-          {tool.description}
+          {lTool.localDescription}
         </p>
 
         {/* Pricing */}

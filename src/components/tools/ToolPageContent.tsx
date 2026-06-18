@@ -5,6 +5,8 @@ import { ExternalLink, Star, CheckCircle2, XCircle, ArrowRight, Building2, Tag }
 import ToolLogo from "@/components/tools/ToolLogo";
 import { useLanguage } from "@/lib/i18n";
 import type { Tool } from "@/lib/types";
+import { localizeTool } from "@/lib/localize";
+import { getToolFAQs } from "@/data/faqs";
 
 interface FAQ { question: string; answer: string; }
 interface Comparison { href: string; label: string; }
@@ -28,13 +30,14 @@ function Stars({ rating }: { rating: number }) {
 interface Props {
   tool: Tool;
   related: Tool[];
-  faqs: FAQ[];
   comparisons: Comparison[];
 }
 
-export default function ToolPageContent({ tool, related, faqs, comparisons }: Props) {
-  const { t } = useLanguage();
+export default function ToolPageContent({ tool, related, comparisons }: Props) {
+  const { t, lang } = useLanguage();
   const sl = t.tool.specLabels;
+  const lTool = localizeTool(tool, lang);
+  const faqs = getToolFAQs(tool, lang);
 
   const FEATURE_TABLE = [
     { label: sl.price,          value: tool.pricing },
@@ -92,7 +95,7 @@ export default function ToolPageContent({ tool, related, faqs, comparisons }: Pr
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed">{tool.description}</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">{lTool.localDescription}</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-3 mt-5 pt-5 border-t border-white/[0.06]">
@@ -107,17 +110,17 @@ export default function ToolPageContent({ tool, related, faqs, comparisons }: Pr
             </div>
           </div>
 
-          {tool.long_description && (
+          {lTool.localLongDescription && (
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">{tool.name}{t.tool.whatIs}</h2>
-              <p className="text-sm text-zinc-400 leading-relaxed">{tool.long_description}</p>
+              <p className="text-sm text-zinc-400 leading-relaxed">{lTool.localLongDescription}</p>
             </section>
           )}
 
           <section>
             <h2 className="text-lg font-semibold text-white mb-4">{t.tool.keyFeatures}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {tool.features.map((f) => (
+              {lTool.localFeatures.map((f) => (
                 <div key={f} className="flex items-center gap-2 text-sm text-zinc-400">
                   <CheckCircle2 className="h-4 w-4 text-violet-400 shrink-0" />{f}
                 </div>
@@ -189,7 +192,7 @@ export default function ToolPageContent({ tool, related, faqs, comparisons }: Pr
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-zinc-500 line-clamp-2 mt-0.5">{rt.description}</p>
+                      <p className="text-xs text-zinc-500 line-clamp-2 mt-0.5">{localizeTool(rt, lang).localDescription}</p>
                     </div>
                   </Link>
                 ))}

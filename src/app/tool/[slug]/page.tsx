@@ -47,7 +47,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   if (!tool) notFound();
 
   const related = getRelatedTools(tool, 4);
-  const faqs = getToolFAQs(tool);
+  const faqs = getToolFAQs(tool, "en");
   const comparisons = relatedComparisons(tool);
 
   const jsonLd = {
@@ -96,7 +96,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ToolPageContent tool={tool} related={related} faqs={faqs} comparisons={comparisons} />
+      <ToolPageContent tool={tool} related={related} comparisons={comparisons} />
     </>
   );
 }

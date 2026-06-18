@@ -12,8 +12,10 @@ export interface Tool {
   name: string;
   slug: string;
   company: string;
-  description: string;
-  long_description?: string;
+  description: string;          // English (base)
+  description_ko?: string;      // Korean override
+  long_description?: string;    // English (base)
+  long_description_ko?: string; // Korean override
   logo_url: string;
   website_url: string;
   affiliate_url: string;
@@ -29,7 +31,8 @@ export interface Tool {
   mobile_app: boolean;
   context_window: string;
   recommended_for: string;
-  features: string[];
+  features: string[];           // English (base)
+  features_ko?: string[];       // Korean override
   alternatives: string[];
   rating?: number;
   review_count?: number;
