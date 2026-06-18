@@ -25,11 +25,13 @@ export const metadata: Metadata = {
     siteName: "AIHub",
     title: "AIHub — AI Tool Comparison & Discovery",
     description: "Compare 33+ AI tools. Find pricing, features, and free plans all in one place.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AIHub — AI Tool Comparison & Discovery" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "AIHub — AI Tool Comparison & Discovery",
     description: "Compare 33+ AI tools. Find pricing, features, and free plans all in one place.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
