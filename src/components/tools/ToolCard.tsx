@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ExternalLink, Star, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getCategoryLabel } from "@/lib/utils";
 import type { Tool } from "@/lib/types";
 import ToolLogo from "./ToolLogo";
+import { useLanguage } from "@/lib/i18n";
 
 interface ToolCardProps {
   tool: Tool;
@@ -13,6 +16,7 @@ interface ToolCardProps {
 }
 
 export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
+  const { t } = useLanguage();
   if (variant === "compact") {
     return (
       <Link href={`/tool/${tool.slug}`}>
@@ -25,7 +29,7 @@ export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
                 <p className="text-xs text-zinc-500 truncate">{tool.company}</p>
               </div>
               {tool.free_plan && (
-                <Badge variant="success" className="text-xs shrink-0">무료</Badge>
+                <Badge variant="success" className="text-xs shrink-0">{t.card.free}</Badge>
               )}
             </div>
           </CardContent>
@@ -48,7 +52,7 @@ export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
                 <Badge variant="purple" className="text-xs">{getCategoryLabel(tool.category)}</Badge>
                 {tool.free_plan && (
                   <Badge variant="success" className="text-xs">
-                    <CheckCircle2 className="h-3 w-3 mr-0.5" />무료
+                    <CheckCircle2 className="h-3 w-3 mr-0.5" />{t.card.free}
                   </Badge>
                 )}
               </div>
@@ -74,7 +78,7 @@ export default function ToolCard({ tool, variant = "default" }: ToolCardProps) {
         <div className="flex items-center gap-2">
           <Link href={`/tool/${tool.slug}`} className="flex-1">
             <Button variant="outline" size="sm" className="w-full border-white/[0.08] text-zinc-300 hover:text-white hover:bg-white/[0.06]">
-              자세히 보기
+              {t.card.viewDetails}
             </Button>
           </Link>
           <a href={tool.affiliate_url} target="_blank" rel="noopener noreferrer">

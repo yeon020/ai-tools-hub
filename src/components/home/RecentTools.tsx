@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
 import { getRecentTools } from "@/data/tools";
 import ToolCard from "@/components/tools/ToolCard";
+import { useLanguage } from "@/lib/i18n";
 
 export default function RecentTools() {
+  const { t } = useLanguage();
   const tools = getRecentTools(6);
 
   return (
@@ -15,15 +19,14 @@ export default function RecentTools() {
               <Clock className="h-4 w-4 text-blue-400" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">Recently Updated</h2>
-              <p className="text-xs text-zinc-500">최신 정보로 업데이트된 AI 툴</p>
+              <h2 className="text-lg font-bold text-white">{t.home.recent}</h2>
+              <p className="text-xs text-zinc-500">{t.home.recentDesc}</p>
             </div>
           </div>
           <Link href="/search" className="flex items-center gap-1 text-sm text-zinc-500 hover:text-violet-400 transition-colors">
-            전체 보기 <ArrowRight className="h-3.5 w-3.5" />
+            {t.card.viewAll} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool) => (
             <ToolCard key={tool.id} tool={tool} />
