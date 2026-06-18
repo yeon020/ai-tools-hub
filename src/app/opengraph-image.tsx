@@ -5,7 +5,11 @@ export const alt = "AIHub — AI Tool Comparison & Discovery";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OgImage() {
+export default async function OgImage() {
+  const fontData = await fetch(
+    new URL("https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2")
+  ).then((res) => res.arrayBuffer()).catch(() => null);
+
   return new ImageResponse(
     (
       <div
@@ -18,10 +22,10 @@ export default function OgImage() {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          fontFamily: "sans-serif",
+          fontFamily: fontData ? "Inter" : "sans-serif",
         }}
       >
-        {/* Top violet glow */}
+        {/* Glow */}
         <div
           style={{
             position: "absolute",
@@ -31,20 +35,12 @@ export default function OgImage() {
             width: "900px",
             height: "500px",
             borderRadius: "50%",
-            background:
-              "radial-gradient(ellipse, rgba(124,58,237,0.3) 0%, transparent 65%)",
+            background: "radial-gradient(ellipse, rgba(124,58,237,0.3) 0%, transparent 65%)",
           }}
         />
 
         {/* Logo */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-            marginBottom: "36px",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "36px" }}>
           <div
             style={{
               width: "60px",
@@ -55,20 +51,13 @@ export default function OgImage() {
               alignItems: "center",
               justifyContent: "center",
               color: "#fff",
-              fontSize: "30px",
+              fontSize: "24px",
               fontWeight: 900,
             }}
           >
             AI
           </div>
-          <span
-            style={{
-              fontSize: "48px",
-              fontWeight: 800,
-              color: "#ffffff",
-              letterSpacing: "-2px",
-            }}
-          >
+          <span style={{ fontSize: "48px", fontWeight: 800, color: "#ffffff", letterSpacing: "-2px" }}>
             Hub
           </span>
         </div>
@@ -76,7 +65,7 @@ export default function OgImage() {
         {/* Headline */}
         <div
           style={{
-            fontSize: "60px",
+            fontSize: "58px",
             fontWeight: 800,
             color: "#ffffff",
             letterSpacing: "-2px",
@@ -85,63 +74,46 @@ export default function OgImage() {
             maxWidth: "900px",
           }}
         >
-          Find & Compare the{" "}
+          {"Find & Compare the "}
           <span style={{ color: "#a78bfa" }}>Best AI Tools</span>
         </div>
 
         {/* Subtitle */}
-        <div
-          style={{
-            marginTop: "24px",
-            fontSize: "26px",
-            color: "#71717a",
-            textAlign: "center",
-          }}
-        >
-          33+ AI tools · Pricing · Features · Free Plans
+        <div style={{ marginTop: "24px", fontSize: "26px", color: "#71717a", textAlign: "center" }}>
+          {"33+ AI tools · Pricing · Features · Free Plans"}
         </div>
 
-        {/* Tool badges */}
-        <div
-          style={{
-            display: "flex",
-            gap: "14px",
-            marginTop: "44px",
-          }}
-        >
-          {["ChatGPT", "Claude", "Cursor", "Midjourney", "Perplexity"].map(
-            (name) => (
-              <div
-                key={name}
-                style={{
-                  padding: "10px 22px",
-                  borderRadius: "999px",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  background: "rgba(255,255,255,0.06)",
-                  color: "#a1a1aa",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                }}
-              >
-                {name}
-              </div>
-            )
-          )}
+        {/* Badges */}
+        <div style={{ display: "flex", gap: "14px", marginTop: "44px" }}>
+          {["ChatGPT", "Claude", "Cursor", "Midjourney", "Perplexity"].map((name) => (
+            <div
+              key={name}
+              style={{
+                padding: "10px 22px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(255,255,255,0.06)",
+                color: "#a1a1aa",
+                fontSize: "20px",
+                fontWeight: 500,
+              }}
+            >
+              {name}
+            </div>
+          ))}
         </div>
 
-        {/* Bottom URL */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "36px",
-            fontSize: "18px",
-            color: "#52525b",
-          }}
-        >
+        {/* URL */}
+        <div style={{ position: "absolute", bottom: "36px", fontSize: "18px", color: "#52525b" }}>
           ai-tools-hub-silk.vercel.app
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      ...(fontData
+        ? { fonts: [{ name: "Inter", data: fontData, style: "normal", weight: 800 }] }
+        : {}),
+    }
   );
 }
