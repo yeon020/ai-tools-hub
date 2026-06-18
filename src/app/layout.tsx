@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import VoteTicker from "@/components/layout/VoteTicker";
 import Analytics from "@/components/analytics/Analytics";
 import { LanguageProvider } from "@/lib/i18n";
 
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LanguageProvider>
           <div className="flex min-h-screen flex-col">
             <Header />
+            <VoteTicker />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
