@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, RotateCcw, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowRight, RotateCcw, Sparkles, ChevronRight, ImageIcon } from "lucide-react";
 import { SAMPLE_TOOLS } from "@/data/tools";
 import { useLanguage } from "@/lib/i18n";
 import type { Tool } from "@/lib/types";
+import StackCard from "@/components/home/StackCard";
 
 interface Question {
   id: string;
@@ -114,6 +115,7 @@ export default function ToolQuiz() {
   const [step, setStep] = useState<number>(0); // 0 = intro
   const [answers, setAnswers] = useState<Answers>({});
   const [results, setResults] = useState<Tool[] | null>(null);
+  const [showCard, setShowCard] = useState(false);
 
   const currentQ = QUESTIONS[step - 1];
   const isIntro = step === 0;
@@ -138,6 +140,10 @@ export default function ToolQuiz() {
   }
 
   return (
+    <>
+    {showCard && results && (
+      <StackCard tools={results} onClose={() => setShowCard(false)} />
+    )}
     <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
         {/* Header */}
@@ -273,6 +279,15 @@ export default function ToolQuiz() {
                   </Link>
                 )}
 
+                {/* Stack card CTA */}
+                <button
+                  onClick={() => setShowCard(true)}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold transition-colors"
+                >
+                  <ImageIcon className="h-4 w-4" />
+                  {lang === "ko" ? "내 AI 스택 카드 만들기 →" : "Create My AI Stack Card →"}
+                </button>
+
                 <button
                   onClick={reset}
                   className="flex items-center gap-1.5 mx-auto text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
@@ -286,5 +301,6 @@ export default function ToolQuiz() {
         </div>
       </div>
     </section>
+    </>
   );
 }
