@@ -13,7 +13,6 @@ import { useLanguage, type Lang } from "@/lib/i18n";
 const LANG_OPTIONS: { value: Lang; flag: string }[] = [
   { value: "en", flag: "EN" },
   { value: "ko", flag: "한" },
-  { value: "ja", flag: "日" },
 ];
 
 export default function Header() {
