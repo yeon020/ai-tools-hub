@@ -9,27 +9,28 @@ import { LanguageProvider } from "@/lib/i18n";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aihub.kr"),
+  metadataBase: new URL("https://ai-tools-hub-silk.vercel.app"),
   title: {
-    default: "AIHub — AI 툴 비교 & 탐색 플랫폼",
+    default: "AIHub — AI Tool Comparison & Discovery",
     template: "%s | AIHub",
   },
   description:
-    "ChatGPT, Claude, Cursor, Midjourney 등 20개 이상의 AI 툴을 탐색하고 비교하세요. 가격, 기능, 무료 플랜 정보를 한 곳에서 확인하세요.",
-  keywords: ["AI 툴", "AI 비교", "ChatGPT", "Claude", "Cursor", "Midjourney", "AI 디렉토리", "인공지능"],
+    "Compare ChatGPT, Claude, Cursor, Midjourney and 30+ AI tools. Find pricing, features, and free plan info all in one place.",
+  keywords: ["AI tools", "AI comparison", "ChatGPT", "Claude", "Cursor", "Midjourney", "AI directory", "artificial intelligence"],
   openGraph: {
     type: "website",
-    locale: "ko_KR",
-    url: "https://aihub.kr",
+    locale: "en_US",
+    alternateLocale: "ko_KR",
+    url: "https://ai-tools-hub-silk.vercel.app",
     siteName: "AIHub",
-    title: "AIHub — AI 툴 비교 & 탐색 플랫폼",
-    description: "20개 이상의 AI 툴을 탐색하고 비교하세요.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AIHub" }],
+    title: "AIHub — AI Tool Comparison & Discovery",
+    description: "Compare 33+ AI tools. Find pricing, features, and free plans all in one place.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AIHub — AI Tool Comparison" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AIHub — AI 툴 비교 & 탐색 플랫폼",
-    description: "20개 이상의 AI 툴을 탐색하고 비교하세요.",
+    title: "AIHub — AI Tool Comparison & Discovery",
+    description: "Compare 33+ AI tools. Find pricing, features, and free plans all in one place.",
     images: ["/og-image.png"],
   },
   robots: {
